@@ -1,0 +1,18 @@
+{% extends 'base.template.html' %}
+{% block css %}
+{% endblock %}
+
+{% block title %}Deleting Record{% endblock %}
+
+{% block content %}
+<form method="POST">
+<div class="alert alert-danger">
+    <div>
+        <p> Are you sure you want to delete the record {{record.id}} {{record.food_name}} ?</p> 
+    </div>
+    <input type="submit" value="Yes, Delete" class="btn btn-danger">
+    <a href="{{url_for('show_records')}}" class="btn btn-success">No!</a>
+</div>
+</form>
+
+{% endblock %}

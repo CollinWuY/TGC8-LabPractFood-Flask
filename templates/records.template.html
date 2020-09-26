@@ -27,6 +27,7 @@
 			<td> {{food.calories}} </td>
 			<td> {{food.meal}} </td>
             <td> <a href="{{url_for('show_edit_records', food_id=food.id)}}" class="btn btn-primary">Edit</a></td>
+            <td> <a href="{{url_for('show_delete_record', food_id=food.id)}}" class="btn btn-danger bt-sm">DELETE</a></td>
 		</tr>
 		{% endfor %}
 	</tbody>

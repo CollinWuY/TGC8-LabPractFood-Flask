@@ -9,6 +9,18 @@ with open('foodlog.json') as fp:
     database = json.load(fp)
 
 
+def find_record_by_id(food_id):
+    for record in database:
+        if record["id"] == food_id:
+            return record
+    return None
+
+
+def save_database():
+    with open('foodlog.json', 'w') as fp:
+        json.dump(database, fp)
+
+
 @app.route('/')
 def home():
     return render_template('home.template.html')
@@ -31,8 +43,7 @@ def process_form():
 
     database.append(new_food)
 
-    with open('foodlog.json', 'w') as fp:
-        json.dump(database, fp)
+    save_database()
 
     return redirect(url_for('show_records'))
 
@@ -44,11 +55,7 @@ def show_records():
 
 @app.route('/records/<int:food_id>/edit')
 def show_edit_records(food_id):
-    record_to_edit = None
-    for each_food in database:
-        if each_food["id"] == food_id:
-            record_to_edit = each_food
-            break
+    record_to_edit = find_record_by_id(food_id)
     if record_to_edit:
         return render_template('edit_record.template.html',
                                record=record_to_edit)
@@ -58,23 +65,39 @@ def show_edit_records(food_id):
 
 @app.route('/records/<int:food_id>/edit', methods=["POST"])
 def process_edit_records(food_id):
-    record_to_edit = None
-    for each_food in database:
-        if each_food["id"] == food_id:
-            record_to_edit = each_food
-            break
+    record_to_edit = find_record_by_id(food_id)
     if record_to_edit:
         record_to_edit["date"] = request.form.get("date")
         record_to_edit["food_name"] = request.form.get("food_name")
         record_to_edit["calories"] = request.form.get("calories")
         record_to_edit["meal"] = request.form.get("meal")
-
-        with open('foodlog.json', 'w') as fp:
-            json.dump(database, fp)
+        save_database()
         return redirect(url_for("show_records"))
 
     else:
         return f"The record of id {food_id} is NOT found!"
+
+
+@app.route('/records/<int:food_id>/delete')
+def show_delete_record(food_id):
+    record_to_delete = find_record_by_id(food_id)
+    if record_to_delete:
+        return render_template('confirm_to_delete.template.html', record=record_to_delete)
+    else:
+        return f"The record with id {food_id} is NOT found"
+
+    return f"Delete {food_id}"
+
+
+@app.route('/records/<int:food_id>/delete', methods=["POST"])
+def process_delete_record(food_id):
+    record_to_delete = find_record_by_id(food_id)
+    if record_to_delete:
+        database.remove(record_to_delete)
+        save_database()
+        return redirect(url_for('show_records'))
+    else:
+        return f"The record with id {food_id} is NOT found"
 
 
 # "magic code" -- boilerplate
