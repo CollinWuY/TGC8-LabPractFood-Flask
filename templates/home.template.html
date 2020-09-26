@@ -1,0 +1,42 @@
+{% extends 'base.template.html' %}
+{% block css %}
+{% endblock %}
+
+{% block title %}Food Registration{% endblock %}
+
+{% block content %}
+<div>
+<h1>Food Diary</h1>
+<h2>Intake Registration</h2>
+</div>
+<form method="POST">
+    <label class="form-label my-3">Date:</label>
+    <input type="text" class="form-control" name="date" placeholder="Enter the Date of Consumption: ">
+    <label class="form-label my-3">Food Name:</label>
+    <input type="text" class="form-control" name="food_name" placeholder="What food is that: ">
+    <label class="form-label mt-3">Calories:</label>
+    <input type="text" class="form-control" name="calories" placeholder="Amount of calories: ">
+    <div class="my-3">
+    <h2>Which Meal:</h2>
+    <label class="mr-3">
+        <input type="radio" class="form-control" name="meal" value="breakfast">Breakfast
+    </label>
+    <label class="mx-3">
+        <input type="radio" class="form-control" name="meal" value="lunch">Lunch
+    </label>
+    <label class="mx-3">
+        <input type="radio" class="form-control" name="meal" value="dinner">Dinner
+    </label>
+    <label class="ml-3">
+        <input type="radio" class="form-control" name="meal" value="snack">Snack
+    </label>
+    </div>
+    <div>
+    <input type="submit" class="btn btn-primary">
+    </div>
+</form>
+<div class="mt-5">
+    <h2> Others </h2>
+    <a href="{{url_for('show_records')}}" class="btn btn-primary btn-sm">Show Records</a>
+</div>
+{% endblock %}

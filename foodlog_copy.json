@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "date": "date of consumption",
+    "food_name": "food_name",
+    "calories": "calories",
+    "meal": "breakfast"
+  },
+  {
+    "id": 2,
+    "date": "26 Sept 20",
+    "food_name": "Sandwich",
+    "calories": "156 cal",
+    "meal": "breakfast"
+  },
+  {
+    "id": 6656,
+    "date": "19 Dec 19",
+    "food_name": "tteokbokki",
+    "calories": "451",
+    "meal": "lunch"
+  },
+  {
+    "id": 5108,
+    "date": "22 Dec 22",
+    "food_name": "Chicken",
+    "calories": "531",
+    "meal": "dinner"
+  },
+  {
+    "id": 6419,
+    "date": "b",
+    "food_name": "fish",
+    "calories": "1212",
+    "meal": "snack"
+  }
+]

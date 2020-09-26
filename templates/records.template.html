@@ -1,0 +1,46 @@
+{% extends 'base.template.html' %}
+{% block css %}
+{% endblock %}
+
+{% block title %}Food Records{% endblock %}
+
+{% block content %}
+<div>
+<h1>Food Diary</h1>
+<h2>Food Records</h2>
+</div>
+<table class="table">
+	<thead>
+		{% for food in all_records %}
+		<th>Date: {{food.date}}</th>
+		<tr>
+			<th>Id</th>
+			<th>Food</th>
+			<th>Calories</th>
+			<th>Meal</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> {{food.id}} </td>
+			<td> {{food.food_name}} </td>
+			<td> {{food.calories}} </td>
+			<td> {{food.meal}} </td>
+            <td> <a href="{{url_for('show_edit_records', food_id=food.id)}}" class="btn btn-primary">Edit</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<a href="{{url_for('home')}}" class="btn btn-primary">Return to Registration</a>
+<!-- <ul class="list-group">
+    {% for food in all_records %}
+        <li class="list-group-item">{{food.id}} --- {{food.date}}</li>
+        <li class="list-group-item">{{food.food_name}}</li>
+        <li class="list-group-item">{{food.calories}}</li>
+        <li class="list-group-item">{{food.meal}}</li>
+    {% endfor %}
+
+</ul> -->
+
+
+{% endblock %}
