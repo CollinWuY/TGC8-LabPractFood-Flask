@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import os
 import json
 import random
 
 app = Flask(__name__)
+app.secret_key = b'#1234567#7654321#'
 database = {}
 with open('foodlog.json') as fp:
     database = json.load(fp)
@@ -45,6 +46,11 @@ def process_form():
 
     save_database()
 
+    flash(
+            f"New food record {new_food['id']} {new_food['food_name']}"
+            f" has been ADDED successfully"
+        )
+
     return redirect(url_for('show_records'))
 
 
@@ -72,6 +78,10 @@ def process_edit_records(food_id):
         record_to_edit["calories"] = request.form.get("calories")
         record_to_edit["meal"] = request.form.get("meal")
         save_database()
+        flash(
+            f"Food record {record_to_edit['id']} {record_to_edit['food_name']}"
+            f" has been EDITED successfully"
+        )
         return redirect(url_for("show_records"))
 
     else:
@@ -95,6 +105,12 @@ def process_delete_record(food_id):
     if record_to_delete:
         database.remove(record_to_delete)
         save_database()
+
+        flash(
+            f"Food record {record_to_delete['id']} {record_to_delete['food_name']}"
+            f" has been DELETED successfully"
+        )
+
         return redirect(url_for('show_records'))
     else:
         return f"The record with id {food_id} is NOT found"
